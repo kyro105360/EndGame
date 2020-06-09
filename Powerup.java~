@@ -1,0 +1,9 @@
+import javax.swing.*;
+import java.awt.*;
+
+abstract class Powerup extends Entity{
+  
+  public Powerup(double x, double y, int width, int length) {
+    super(x, y, width, length);
+  }
+}

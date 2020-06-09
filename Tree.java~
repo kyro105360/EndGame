@@ -1,0 +1,16 @@
+import javax.swing.*;
+import java.awt.*;
+
+
+class Tree extends Tile {
+  private Image tree = Toolkit.getDefaultToolkit().getImage("tree.png"); 
+  
+  Tree(int gridX, int gridY, int boxWidth, int boxHeight) {
+    super(gridX,gridY, false, boxWidth, boxHeight);
+  }
+  // draws according to the hero's coordinates.     
+  public void draw(Graphics g, Hero hero) {
+    g.drawImage(this.tree,(int)(getPixelX() - (hero.getPixelX())) + 512,
+              (int)(getPixelY() - (hero.getPixelY())) + 512, World.boxWidth, World.boxHeight, null);
+  }
+}

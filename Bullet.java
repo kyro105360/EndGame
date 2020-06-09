@@ -1,0 +1,98 @@
+/** 
+ * Bullet.java
+ * Version Final
+ * @author Kyrollous Nassif
+ * @6/13/2019
+ * bullet class for hero to shoot
+ */
+
+import javax.swing.*;
+import java.awt.*;
+
+class Bullet extends Entity {
+  private int xShift; // the x velocity
+  private int yShift; // the y velocity
+  private String direction;
+  private Image bullet = Toolkit.getDefaultToolkit().getImage("bullet.png"); 
+  /**
+  * Constructor.
+  * 
+  * @param x, integer of the x coordinate
+  * @param y, integer of the y coordinate 
+  * @param direction, String of the direction
+  */
+  Bullet(double x, double y, String direction) {
+    super(x, y, World.boxWidth/4, World.boxHeight/4);
+    this.direction = direction;
+    this.xShift = 0;
+    this.yShift = 0;
+  }
+/**
+* isOutOfBounds
+* checks whether bullet is in bounds or not
+* @param length of world to check the bounds
+* @return Boolean, true if the operation was a success, false otherwise.
+*/
+  public boolean isOutOfBounds(int lengthOfWorld)  {
+    if (getPixelX() >= lengthOfWorld || getPixelX() < 0 || getPixelY() >= lengthOfWorld || getPixelY() < 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+/**
+* hitsEnemy
+* checks whether bullet hit an enemy or not, and kills the enemy if it did
+* @param enemies checks through all the bullets 
+* @return Boolean, return whether it hit an enemy or not
+*/
+  public boolean hitsEnemy(Enemy[] enemies) {
+    boolean result = false;
+    for (int i = 0; i < enemies.length; i++) {
+      if (enemies[i] != null){
+        if (getBoundingBox().intersects(enemies[i].getBoundingBox())) {
+          result = true;
+          enemies[i].loseHealth(50);
+          i = enemies.length;
+        }
+      }
+    }
+    return result;
+    
+  }
+/**
+* update
+* updates the location of the bullet
+* @param clock to move based on time, not framerate 
+*/
+  public void update(Clock clock) {
+    //set the shifts based on the direction
+    if (this.direction == null){
+      this.yShift = World.boxHeight*15;
+    }else if (this.direction == "right") { //
+      this.xShift = World.boxWidth*15;
+    }else if(this.direction == "left") {
+      this.xShift = -World.boxWidth*15;
+    }else if(this.direction == "up") { 
+      this.yShift = -World.boxHeight*15;
+    }else if(this.direction == "down") {
+      this.yShift = World.boxHeight*15;
+    }
+    // update coordinates and boundingbox coordinates
+    setPixelX(getPixelX() + xShift*clock.getElapsedTime());
+    setPixelY(getPixelY() + yShift*clock.getElapsedTime());
+    setBoundingBoxX(getPixelX() + xShift*clock.getElapsedTime());
+    setBoundingBoxY(getPixelY() + yShift*clock.getElapsedTime());
+  }
+/**
+* draw
+* draws the current location of the bullet
+* @param g to draw on specific graphic
+* @param hero to get the hero's coordinates to know where to draw
+*/  
+  public void draw(Graphics g, Hero hero) {
+    // draw using (int)(getPixelX/Y() - (hero.getPixelX/Y())) + 512 to draw based on hero's coordinates
+    g.drawImage(this.bullet, (int)(getPixelX() - (hero.getPixelX())) + 512,
+                (int)(getPixelY() - (hero.getPixelY())) + 512, getWidth(), getLength(), null);
+  }
+}

@@ -1,0 +1,16 @@
+import javax.swing.*;
+import java.awt.*;
+
+class Grass extends Tile {
+  private Image grass = Toolkit.getDefaultToolkit().getImage("Grass.png");
+  static Color backgroundColor = new Color(34, 139, 34);
+  
+  Grass(int gridX, int gridY, int boxWidth, int boxHeight) {
+    super(gridX, gridY, true, boxWidth, boxHeight);
+  }
+  
+  public void draw(Graphics g, Hero hero) {
+    g.drawImage(this.grass, (int)(getPixelX() - (hero.getPixelX())) + 512,
+              (int)(getPixelY() - (hero.getPixelY())) + 512, World.boxWidth, World.boxHeight, null);
+  }
+}

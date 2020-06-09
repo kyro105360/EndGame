@@ -1,0 +1,17 @@
+import javax.swing.*;
+import java.awt.*;
+
+
+class Water extends Tile {
+  private Image water = Toolkit.getDefaultToolkit().getImage("Water.png");
+  
+  Water(int gridX, int gridY, int boxWidth, int boxHeight) {
+    super(gridX, gridY, false, boxWidth, boxHeight);
+
+  }
+  
+  public void draw(Graphics g, Hero hero) {
+   g.drawImage(this.water,(int)(getPixelX() - (hero.getPixelX())) + 512,
+              (int)(getPixelY() - (hero.getPixelY())) + 512, World.boxWidth, World.boxHeight, null);
+  }
+}

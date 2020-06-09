@@ -1,0 +1,57 @@
+import javax.swing.*;
+import java.awt.*;
+/** 
+ * GamePanel.java
+ * Version Final
+ * @author Kyrollous Nassif + Tony Lu
+ * @6/13/2019
+ * character class to act as a blueprint for hero and enemy
+ */
+abstract class Character extends Entity{
+  private int xShift;
+  private int yShift;
+  private int health;
+  // health not used yet lol
+  Character(double x, double y, int width, int length, int health) {
+    super(x, y, length, width);
+    this.xShift = 0;
+    this.yShift = 0;
+    this.health = health;
+    
+  }
+  public void setXShift(int shift) {
+    this.xShift = shift;
+  }
+  public void setYShift(int shift) {
+    this.yShift = shift;
+  }
+  public int getXShift() {
+    return this.xShift;
+  }
+  public int getYShift() { 
+    return this.yShift;    
+  }
+  public int getHealth() {
+    return this.health;
+  }
+  public void loseHealth(int amount) {
+    this.health -= amount;
+  }
+  public void setHealth(int health) {
+    this.health = health;
+  }
+  // check if character can walk to where it currently is
+  public boolean ifWalkable(Tile[][] world) {
+    boolean result = true;
+    for (int i = getGridY(); i < getGridY() + 2; i++) {
+      for (int j = getGridX(); j < getGridX() + 2; j++) {
+        if (i < world.length && i >= 0 && j < world.length && j >= 0) {
+          if (world[i][j] != null && getBoundingBox().intersects(world[i][j].boundingBox) && !world[i][j].getWalkable()) {
+            result = false;          
+          }
+        }
+      }
+    }
+    return result;
+  }
+}

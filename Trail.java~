@@ -1,0 +1,16 @@
+import javax.swing.*;
+import java.awt.*;
+
+
+class Trail extends Tile {
+  private Image trail = Toolkit.getDefaultToolkit().getImage("trail.png");
+  
+  Trail(int gridX, int gridY, int boxWidth, int boxHeight) {
+    super(gridX, gridY, true, boxWidth, boxHeight);
+  }
+  public void draw(Graphics g, Hero hero) {
+   g.drawImage(this.trail,(int)(getPixelX() - (hero.getPixelX())) + 512,
+              (int)(getPixelY() - (hero.getPixelY())) + 512, World.boxWidth, World.boxHeight, null);
+
+  }
+}

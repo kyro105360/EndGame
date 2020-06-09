@@ -1,0 +1,37 @@
+import javax.swing.*;
+import java.awt.*;
+
+
+// class represents blueprint for all different tiles 
+abstract class Tile {
+  private int gridX;
+  private int gridY;
+  private boolean walkable;
+  Rectangle boundingBox;
+  
+  Tile(int x, int y, boolean walkable, int boxWidth, int boxHeight) {
+    this.gridX = x;
+    this.gridY = y;
+    this.walkable = walkable;
+    boundingBox = new Rectangle(this.gridX*World.boxWidth, this.gridY*World.boxHeight, boxWidth, boxHeight);
+    
+  }
+  public int getGridX() {
+    return this.gridX;
+  }
+  public int getGridY() {
+    return this.gridY;
+  }
+  public int getPixelX() {
+    return this.gridX*World.boxWidth;
+  }
+  public int getPixelY() {
+    return this.gridY*World.boxHeight;
+  }
+  public boolean getWalkable() {
+    return this.walkable;
+  }
+  // draws tiles based on the hero's coordinates on the map
+  abstract void draw(Graphics g, Hero hero);
+}
+

@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+abstract class Entity{
+  private double x;
+  private double y;
+  private int length;
+  private int width;
+  private Rectangle boundingBox;
+  
+  Entity(double x, double y, int width, int length) {
+    this.x = x;
+    this.y = y;
+    this.length = length;
+    this.width = width;
+    boundingBox = new Rectangle((int)x, (int)y, width, length);
+  }
+  public int getGridX() {
+    return (int)this.x/World.boxWidth;
+  }
+  public int getGridY() {
+    return (int)this.y/World.boxHeight;
+  }
+  public double getPixelX() {
+    return this.x;
+  }
+  public double getPixelY() {
+    return this.y;
+  }
+  public void setPixelX(double x) {
+    this.x = x;
+  }
+  public void setPixelY(double y) {
+    this.y = y;
+  }
+  public int getWidth() {
+    return this.width;
+  }
+  public int getLength() {
+    return this.length;
+  }
+  public void setBoundingBoxX(double x) {
+    boundingBox.x = (int)x;
+  }
+  public void setBoundingBoxY(double y) {
+    boundingBox.y = (int)y;
+  }
+  public Rectangle getBoundingBox() {
+    return this.boundingBox;
+  }
+}
